@@ -10,11 +10,49 @@
 <body>
    
    <header>
-      <img src="LOGO.png" alt="logo">
+      <div class="logo">
+         <img src="LOGO.png" alt="logo">
+         <h1>ClimaCheck</h1>
+      </div>
+      <nav class="menu">
+         <button class="menuButton" onclick="toogleMenu()">Menu</button>
+         <ul class="menu-items">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+         </ul>
+      </nav>
    </header>
-   <!--SEGUIR O PASSO A PASSO DO CHATGPT, PELO MENOS NA ESTRUTURA-->
-   <main>
 
+   <main>
+      <div class="search">
+         <form action="#">
+            <input type="text" placeholder="Digite a localização">
+            <button type="submit"></button>
+         </form>
+      </div>
+
+      <div class="city">
+         <h1>NOME DA CIDADE | TEMPERATURA</h1>
+      </div>
+
+      <div class="cards">
+         <div class="card">
+
+         </div>
+         <div class="card">
+            
+         </div>
+         <div class="card">
+            
+         </div>
+         <div class="card">
+
+         </div>
+         <div class="card">
+
+         </div>
+      </div>
    </main>
 
    <footer>
@@ -22,5 +60,6 @@
    </footer>
 
    <script src="JavaScript/index.js"></script>
+   <script src="JavaScript/menu.js"></script>
 </body>
 </html>
