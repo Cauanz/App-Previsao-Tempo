@@ -2,6 +2,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -51,18 +52,12 @@ nav {
    cursor: pointer;
    width: 250px;
    height: 50px;
+   font-size: 20px;
+   text-transform: uppercase;
 }
 
 .menu {
    position: relative;
-}
-
-.menu-button {
-   background-color: #ccc;
-   border: none;
-   color: #fff;
-   padding: 10px 20px;
-   cursor: pointer;
 }
 
 .menu-items {
@@ -76,17 +71,186 @@ nav {
 }
 
 .menu-items li {
-   padding: 10px;
    height: 50px;
+   width: 100%;
+   text-align: center;
 }
 
 .menu-items li a {
    color: #333;
    text-decoration: none;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-weight: bold;
+}
+
+.menu-items li a:hover {
+   background-color: #fff;
+   color: #1066d6;
 }
 
 .show-menu-items {
-   display: block;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
 }
 
 /* MENU */ 
+
+main {
+   display: grid;
+   grid-template-columns: 1fr;
+   grid-template-rows: 80px 50px 320px 100px;
+}
+
+.search {
+   grid-column-start: 1;
+   grid-column-end: 2;
+   grid-row-start: 1;
+   grid-row-end: 2;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   justify-content: center;
+   height: 60%;
+}
+
+.search input {
+   width: 40%;
+   height: 40px;
+   border-radius: 5px 0 0 5px;
+   border: 2px solid black;
+   padding: 10px;
+   font-size: 20px;
+}
+
+.search input:focus {
+   outline: none;
+}
+
+.search button {
+   height: 40px;
+   width: 70px;
+   border-radius: 0 5px 5px 0;
+   border: 2px solid black;
+   border-left: none;
+   cursor: pointer;
+}
+
+.searchButton:active {
+   background-color: #1066d6;
+   color: #fff;
+}
+
+.search img {
+   width: 20px;
+   height: 20px;
+}
+
+.sugestoesDiv {
+   width: 40%;
+   position: absolute;
+   top: 93%;
+   left: 374px;
+}
+
+.sugestoes {
+   background-color: #1066d6;
+   list-style: none;
+   padding: 0;
+   width: 100%;
+}
+
+.sugestoes li {
+   height: 50px;
+   width: 100%;
+   padding: 10px;
+   display: flex;
+   align-items: center;
+}
+
+form {
+   width: 100%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+}
+
+.city {
+   text-align: center;
+}
+
+.city h1 {
+   text-transform: uppercase;
+}
+
+/* CARDS */
+
+.cards {
+   display: flex;
+   justify-content: space-around;
+   flex-wrap: wrap;
+   grid-column-start: 1;
+   grid-column-end: 2;
+   grid-row-start: 3;
+   grid-row-end: 4;
+   height: 100%;
+   width: 100%;
+}
+
+.card {
+   width: 200px;
+   height: 300px;
+   border: 1px solid #ccc;
+   padding: 10px;
+   text-align: center;
+}
+
+.city-name {
+   font-size: 18px;
+   margin-top: 10px;
+}
+
+.temperaturaAtual {
+   font-size: 24px;
+   margin-top: 20px;
+}
+
+.condicao {
+   font-size: 16px;
+   margin-top: 10px;
+}
+
+.probabilidadeChuva {
+   font-size: 14px;
+   margin-top: 10px;
+}
+
+.listaTemperatura {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 20px;
+}
+
+.temperatureMax,
+.temperatureMin {
+   width: calc(50% - 10px);
+}
+
+.label {
+   font-size: 14px;
+   margin-bottom: 5px;
+}
+
+.value {
+   font-size: 18px;
+}
+
+/* CARDS */

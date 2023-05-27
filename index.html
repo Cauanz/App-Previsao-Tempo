@@ -15,7 +15,7 @@
          <h1>ClimaCheck</h1>
       </div>
       <nav class="menu">
-         <button class="menuButton" onclick="toogleMenu()">Menu</button>
+         <button class="menuButton">Menu</button>
          <ul class="menu-items">
             <li><a href="#">Home</a></li>
             <li><a href="#">Sobre</a></li>
@@ -27,31 +27,111 @@
    <main>
       <div class="search">
          <form action="#">
-            <input type="text" placeholder="Digite a localização">
-            <button type="submit"></button>
+            <input type="text" class="cityInput" placeholder="Digite a localização">
+            <button type="submit" class="searchButton"><img src="search.png" alt="search"></button>
+            <div class="sugestoesDiv">
+               <ul class="sugestoes">
+               </ul>
+            </div>
          </form>
+
       </div>
 
       <div class="city">
-         <h1>NOME DA CIDADE | TEMPERATURA</h1>
+         <h1 class="cityName">NOME DA CIDADE | TEMPERATURA</h1>
       </div>
 
       <div class="cards">
          <div class="card">
-
+            <h2 class="city-name">Nome da Cidade</h2>
+            <img class="climaAtual" src="caminho/para/imagem.jpg" alt="Clima Atual">
+            <p class="temperaturaAtual">25°C</p>
+            <p class="condicao">Ensolarado</p>
+            <p class="probabilidadeChuva">Probabilidade de chuva: 10%</p>
+            <div class="listaTemperatura">
+               <div class="temperatureMax">
+                  <p class="label">Máxima</p>
+                  <p class="value">30°C</p>
+               </div>
+               <div class="temperatureMin">
+                  <p class="label">Mínima</p>
+                  <p class="value">20°C</p>
+               </div>
+            </div>
          </div>
-         <div class="card">
             
-         </div>
          <div class="card">
-            
+            <h2 class="city-name">Nome da Cidade</h2>
+            <img class="climaAtual" src="caminho/para/imagem.jpg" alt="Clima Atual">
+            <p class="temperaturaAtual">25°C</p>
+            <p class="condicao">Ensolarado</p>
+            <p class="probabilidadeChuva">Probabilidade de chuva: 10%</p>
+            <div class="listaTemperatura">
+               <div class="temperatureMax">
+                  <p class="label">Máxima</p>
+                  <p class="value">30°C</p>
+               </div>
+               <div class="temperatureMin">
+                  <p class="label">Mínima</p>
+                  <p class="value">20°C</p>
+               </div>
+            </div>
          </div>
-         <div class="card">
 
-         </div>
          <div class="card">
-
+            <h2 class="city-name">Nome da Cidade</h2>
+            <img class="climaAtual" src="caminho/para/imagem.jpg" alt="Clima Atual">
+            <p class="temperaturaAtual">25°C</p>
+            <p class="condicao">Ensolarado</p>
+            <p class="probabilidadeChuva">Probabilidade de chuva: 10%</p>
+            <div class="listaTemperatura">
+               <div class="temperatureMax">
+                  <p class="label">Máxima</p>
+                  <p class="value">30°C</p>
+               </div>
+               <div class="temperatureMin">
+                  <p class="label">Mínima</p>
+                  <p class="value">20°C</p>
+               </div>
+            </div>
          </div>
+
+         <div class="card">
+            <h2 class="city-name">Nome da Cidade</h2>
+            <img class="climaAtual" src="caminho/para/imagem.jpg" alt="Clima Atual">
+            <p class="temperaturaAtual">25°C</p>
+            <p class="condicao">Ensolarado</p>
+            <p class="probabilidadeChuva">Probabilidade de chuva: 10%</p>
+            <div class="listaTemperatura">
+               <div class="temperatureMax">
+                  <p class="label">Máxima</p>
+                  <p class="value">30°C</p>
+               </div>
+               <div class="temperatureMin">
+                  <p class="label">Mínima</p>
+                  <p class="value">20°C</p>
+               </div>
+            </div>
+         </div>
+
+         <div class="card">
+            <h2 class="city-name">Nome da Cidade</h2>
+            <img class="climaAtual" src="caminho/para/imagem.jpg" alt="Clima Atual">
+            <p class="temperaturaAtual">25°C</p>
+            <p class="condicao">Ensolarado</p>
+            <p class="probabilidadeChuva">Probabilidade de chuva: 10%</p>
+            <div class="listaTemperatura">
+               <div class="temperatureMax">
+                  <p class="label">Máxima</p>
+                  <p class="value">30°C</p>
+               </div>
+               <div class="temperatureMin">
+                  <p class="label">Mínima</p>
+                  <p class="value">20°C</p>
+               </div>
+            </div>
+         </div>
+         
       </div>
    </main>
 
@@ -61,5 +141,6 @@
 
    <script src="JavaScript/index.js"></script>
    <script src="JavaScript/menu.js"></script>
+   <script src="JavaScript/autocomplete.js"></script>
 </body>
 </html>
