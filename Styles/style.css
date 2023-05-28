@@ -153,14 +153,13 @@ main {
 }
 
 .sugestoesDiv {
-   width: 40%;
+   width: 543px;
    position: absolute;
    top: 93%;
    left: 374px;
 }
 
 .sugestoes {
-   background-color: #1066d6;
    list-style: none;
    padding: 0;
    width: 100%;
@@ -171,7 +170,11 @@ main {
    width: 100%;
    padding: 10px;
    display: flex;
+   background: #fff;
+   border: 2px solid #000;
+   border-top: none;
    align-items: center;
+   border-radius: 0 0 5px 5px;
 }
 
 form {
