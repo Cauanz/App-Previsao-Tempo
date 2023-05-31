@@ -1,6 +1,7 @@
 //@ts-check
 const menu = document.querySelector('.menu-items');
 const menuButton = document.querySelector('.menuButton');
+const menuOptions = menu?.querySelectorAll('li');
 
 if(menuButton){
    menuButton.addEventListener('click', () => {
@@ -9,6 +10,12 @@ if(menuButton){
       }
    })
 }
+
+menuOptions?.forEach((option) => {
+   option.addEventListener('click', () => {
+      menu?.classList.remove('show-menu-items');
+   })
+});
 
 
 document.addEventListener('click', (event) => {

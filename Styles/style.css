@@ -87,12 +87,13 @@ nav {
    font-weight: bold;
 }
 
-.menu-items li a:hover {
+.menu-items li:hover {
    background-color: #fff;
    color: #1066d6;
 }
 
 .show-menu-items {
+   z-index: 1;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -175,6 +176,7 @@ main {
    border-top: none;
    align-items: center;
    border-radius: 0 0 5px 5px;
+   cursor: pointer;
 }
 
 form {
