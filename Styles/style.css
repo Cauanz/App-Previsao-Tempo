@@ -8,6 +8,7 @@
 body {
    width: 100vw;
    height: 100vh;
+   background:#1066d6d0;
 }
 
 header {
@@ -119,6 +120,7 @@ main {
    align-items: center;
    justify-content: center;
    height: 60%;
+   position: relative;
 }
 
 .search input {
@@ -154,16 +156,20 @@ main {
 }
 
 .sugestoesDiv {
-   width: 543px;
+   width: 100%;
    position: absolute;
-   top: 93%;
-   left: 374px;
+   top: 100%;
+   left: 0;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
 }
 
 .sugestoes {
    list-style: none;
    padding: 0;
-   width: 100%;
+   width: 40%;
 }
 
 .sugestoes li {
@@ -216,6 +222,14 @@ form {
    border: 1px solid #ccc;
    padding: 10px;
    text-align: center;
+   border-radius: 10px;
+   background: #1F2E54;
+   font-weight: bold;
+   color: #6E85C1;
+}
+
+.card h3 {
+   color: #B7BCC8;
 }
 
 .city-name {
@@ -259,3 +273,25 @@ form {
 }
 
 /* CARDS */
+
+
+
+/* MEDIA QUERIES */
+
+@media (max-width: 600px) {
+   .search {
+      flex-direction: column;
+   }
+
+   .search input {
+      width: 100%;
+      border-radius: 5px;
+      margin-bottom: 10px;
+   }
+
+   .sugestoesDiv {
+      width: 100%;
+      left: 0;
+   }
+}
+

@@ -30,6 +30,12 @@ async function getWeather(inputCity){
 
 
       const condicao = document.querySelectorAll('.condicao');
+      const condicaoIcones = document.querySelectorAll('.climaAtual');
+
+      condicaoIcones.forEach((element) => {
+         const icon = data.current.condition.icon;
+         element.src = icon;
+      });
 
       const condicaoAtual = data.current.condition.text;
 
