@@ -170,10 +170,13 @@ main {
    list-style: none;
    padding: 0;
    width: 40%;
+   position: absolute;
+   top: 90%;
+   left: 27.7%;
 }
 
 .sugestoes li {
-   height: 50px;
+   height: 40px;
    width: 100%;
    padding: 10px;
    display: flex;
@@ -181,7 +184,7 @@ main {
    border: 2px solid #000;
    border-top: none;
    align-items: center;
-   border-radius: 0 0 5px 5px;
+   border-radius: 5px;
    cursor: pointer;
 }
 
@@ -191,7 +194,6 @@ form {
    display: flex;
    align-items: center;
    justify-content: center;
-   position: relative;
 }
 
 .city {

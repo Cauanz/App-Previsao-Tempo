@@ -13,7 +13,7 @@ async function getWeather(inputCity){
    /* RETORNO CONDIÇÃO ATUAL */
    const city = inputCity;
    const apiKey = 'ea9e8fdb5f074392af0160830232705';
-   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}`
+   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&lang=pt`
 
    fetch(apiUrl)
    .then((response) => response.json())
@@ -100,7 +100,7 @@ async function getWeather(inputCity){
 function updateWeather(inputCity){
    const city = inputCity;
    const apiKey = 'ea9e8fdb5f074392af0160830232705';
-   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}`
+   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&lang=pt`
 
    fetch(apiUrl)
    .then((response) => response.json())
@@ -126,14 +126,12 @@ const cityInput = document.querySelector('.cityInput');
 cityInput.addEventListener('input', handleCityInput);
 
 function handleCityInput(event) {
-   const inputValue = event.target.value;
-   // Limpar o timeout anterior, se existir
-   clearTimeout(timeoutId);
-   // Definir um novo timeout para aguardar antes de fazer a solicitação à API
+   const inputValue = event.target.value; // Valor digitado pelo usuário
+   clearTimeout(timeoutId); // Limpar o timeout anterior
    timeoutId = setTimeout(() => {
       // Fazer a solicitação à API para obter as sugestões de autocompletar
       const apiKey = 'ea9e8fdb5f074392af0160830232705';
-      const apiUrl = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${inputValue}`
+      const apiUrl = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${inputValue}&lang=pt`
 
       fetch(apiUrl)
          .then(response => response.json())
@@ -150,9 +148,7 @@ function handleCityInput(event) {
 
 function updateAutocompleteSuggestions(suggestions) {
    const autocompleteList = document.querySelector('.sugestoes');
-   // Limpar a lista de sugestões existentes
    autocompleteList.innerHTML = '';
-   // Criar e adicionar novos itens de sugestão à lista
    suggestions.forEach(suggestion => {
       const item = document.createElement('li');
       item.innerHTML = suggestion;
