@@ -1,1 +1,15 @@
-{}
+{
+   "name": "app-previsao-tempo",
+   "version": "1.0.0",
+   "main": "index.js",
+   "scripts": {
+      "dev": "snowpack dev"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "description": "",
+   "devDependencies": {
+      "snowpack": "^3.8.8"
+   }
+}

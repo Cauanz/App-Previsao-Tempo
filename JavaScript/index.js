@@ -1,16 +1,6 @@
-const searchButton = document.querySelector('.searchButton');
-searchButton.addEventListener('click', () => {
-   searchWeather();
-});
-
-const searchWeather = () => {
-   const inputCity = document.querySelector('.cityInput').value;
-   getWeather(inputCity);
-   updateWeather(inputCity);
-}
-
-async function getWeather(inputCity){
    /* RETORNO CONDIÇÃO ATUAL */
+async function getWeather(inputCity){
+
    const city = inputCity;
    const apiKey = 'ea9e8fdb5f074392af0160830232705';
    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&lang=pt`
@@ -18,30 +8,31 @@ async function getWeather(inputCity){
    fetch(apiUrl)
    .then((response) => response.json())
    .then((data) => {
-      console.log(data);
-      const cityName = document.querySelector('.cityName');
-      const cityNameCard = document.querySelectorAll('.city-name');
-      let city = data.location.name;
-      let temperature = data.current.temp_c;
-      cityName.innerHTML = `${city} | ${temperature}°C`;
-      cityNameCard.forEach((element) => {
-         element.innerHTML = `${city}`;
-      });
+      console.error(data); // Teste de retorno de dados 
+
+      // const cityName = document.querySelector('.cityName');
+
+      // let city = data.location.name;
+      // let regiao = data.location.region;
+      // let pais = data.location.country;
+      // let temperature = data.current.temp_c;
+      // cityName.innerHTML = `${city} | ${regiao} | ${pais} | ${temperature}°C`;
 
 
-      const condicao = document.querySelectorAll('.condicao');
-      const condicaoIcones = document.querySelectorAll('.climaAtual');
+      // const condicao = document.querySelectorAll('.condicao');
+      // const condicaoIcones = document.querySelectorAll('.climaIcone');
 
-      condicaoIcones.forEach((element) => {
-         const icon = data.current.condition.icon;
-         element.src = icon;
-      });
+      // condicaoIcones.forEach((element) => {
+      //    const icon = data.current.condition.icon;
+      //    element.src = icon;
+      // });
 
-      const condicaoAtual = data.current.condition.text;
 
-      condicao.forEach((element) => {
-         element.innerHTML = `${condicaoAtual}`;
-      });
+      // const condicaoAtual = data.current.condition.text;
+
+      // condicao.forEach((element) => {
+      //    element.innerHTML = `${condicaoAtual}`;
+      // });
 
    })
    .catch((error) => {
@@ -52,49 +43,52 @@ async function getWeather(inputCity){
 
    /* PREVISÃO DO TEMPO - FUTURO*/
 
-   (function() { /* FUNÇÃO AUTO INVOCADA - SÓ PARA FECHAR NO EDITOR*/
-      const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(city)}&days=7`
+   /* FUNÇÃO AUTO INVOCADA - SÓ PARA FECHAR NO EDITOR */
+   const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(city)}&days=5`
 
-      fetch(forecastUrl)
-      .then((response) => response.json())
-      .then((data) => {
-         console.log(data);
-   
-         const probabilidadeChuva = document.querySelectorAll('.probabilidadeChuva');
-         const tempMax = document.querySelectorAll('.temperatureMax');
-         const tempMin = document.querySelectorAll('.temperatureMin');
-         
-   
-         const maxTemperature = data.forecast.forecastday[0].day.maxtemp_c;
-         const minTemperature = data.forecast.forecastday[0].day.mintemp_c;
-         const chuva = data.forecast.forecastday[0].day.daily_chance_of_rain;
-         
-         probabilidadeChuva.forEach((element) => {
-            element.innerHTML = `Probabilidade ${chuva}%`;
-         });
-   
-         tempMax.forEach((element) => {
-            const maxTemp = element.querySelectorAll('.value');
-            
-            maxTemp.forEach((element) => {
-               element.innerHTML = `${maxTemperature}°C`;
-               console.log(element);
-            });
-         });
-   
-         tempMin.forEach((element) => {
-            const minTemp = element.querySelectorAll('.value');
-   
-            minTemp.forEach((element) => {
-               element.innerHTML = `${minTemperature}°C`;
-               console.log(element);
-            });
-         });
-   
-      }).catch((error) => {
-         console.log(`Ocorreu um erro na solicitação dos dados ${error}`);
+   fetch(forecastUrl)
+   .then((response) => response.json())
+   .then((data) => {
+      console.log(data);
+
+      const probabilidadeChuva = document.querySelectorAll('.probabilidadeChuva');
+      const tempMax = document.querySelectorAll('.temperatureMax');
+      const tempMin = document.querySelectorAll('.temperatureMin');
+      
+
+   probabilidadeChuva.forEach((element, index) => {
+      const forecastday = data.forecast.forecastday[index];
+      if (forecastday) {
+         const chuva = forecastday.day.daily_chance_of_rain;
+         element.innerHTML = `Probabilidade de chuva: ${chuva}%`;
+      }
       });
-   })();
+      
+      tempMax.forEach((element, index) => {
+      const forecastday = data.forecast.forecastday[index];
+      if (forecastday) {
+         const maxTemperature = forecastday.day.maxtemp_c;
+         const maxTemp = element.querySelectorAll('.value');
+         maxTemp.forEach((element) => {
+            element.innerHTML = `${maxTemperature}°C`;
+         });
+      }
+      });
+      
+      tempMin.forEach((element, index) => {
+      const forecastday = data.forecast.forecastday[index];
+      if (forecastday) {
+         const minTemperature = forecastday.day.mintemp_c;
+         const minTemp = element.querySelectorAll('.value');
+         minTemp.forEach((element) => {
+            element.innerHTML = `${minTemperature}°C`;
+         });
+      }
+      });
+
+   }).catch((error) => {
+      console.log(`Ocorreu um erro na solicitação dos dados ${error}`);
+   });
 }
 
 function updateWeather(inputCity){
@@ -120,7 +114,7 @@ function updateWeather(inputCity){
 
 //AUTO COMPLETE SEARCH
 
-let timeoutId; // Variável para armazenar o ID do timeout
+/* let timeoutId; // Variável para armazenar o ID do timeout
 
 const cityInput = document.querySelector('.cityInput');
 cityInput.addEventListener('input', handleCityInput);
@@ -165,4 +159,13 @@ function updateAutocompleteSuggestions(suggestions) {
       });
       autocompleteList.appendChild(item);
    });
+} */
+
+const searchButton = document.querySelector('.searchButton');
+searchButton.addEventListener('click', searchWeather);
+
+const searchWeather = () => {
+   const inputCity = document.querySelector('.cityInput').value;
+   getWeather(inputCity);
+   updateWeather(inputCity);
 }

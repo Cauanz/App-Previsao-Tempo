@@ -196,11 +196,11 @@ form {
    justify-content: center;
 }
 
-.city {
+.cityName {
    text-align: center;
 }
 
-.city h1 {
+.cityName {
    text-transform: uppercase;
 }
 
@@ -208,7 +208,8 @@ form {
 
 .cards {
    display: flex;
-   justify-content: space-around;
+   justify-content: center;
+   gap: 40px;
    flex-wrap: wrap;
    grid-column-start: 1;
    grid-column-end: 2;
@@ -241,7 +242,7 @@ form {
 
 .temperaturaAtual {
    font-size: 24px;
-   margin-top: 20px;
+   margin-top: 10px;
 }
 
 .condicao {
@@ -279,220 +280,3 @@ form {
 
 
 /* MEDIA QUERIES */
-/* 
-@media (max-width: 600px) {
-   .search {
-      flex-direction: column;
-   }
-
-   .search input {
-      width: 100%;
-      border-radius: 5px;
-      margin-bottom: 10px;
-   }
-
-   .sugestoesDiv {
-      width: 100%;
-      left: 0;
-   }
-
-      body,
-   header,
-   main,
-   footer {
-      margin: 0;
-      padding: 0;
-   }
-
-   /* Alinhar o conteúdo centralizado verticalmente 
-   body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-   }
-
-   /* Estilos para o cabeçalho (header) 
-   header {
-      width: 100%;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 10px;
-   }
-
-   .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-   }
-
-   .logo img {
-      width: 40px;
-      height: 40px;
-   }
-
-   .logo h1 {
-      font-size: 18px;
-      margin: 0;
-   }
-
-   .menu {
-      display: none;
-   }
-
-   .menuButton {
-      display: none;
-   }
-
-   .menu-items {
-      display: flex;
-      flex-direction: column;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background-color: #1066d6;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-   }
-
-   .menu-items li {
-      height: 40px;
-      width: 100%;
-      text-align: center;
-   }
-
-   .menu-items li a {
-      color: #fff;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-   }
-
-   /* Estilos para o formulário de pesquisa (search) 
-   .search {
-      width: 100%;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-   }
-
-   .search input {
-      width: 100%;
-   }
-
-   .search button {
-      width: 100%;
-   }
-
-   .sugestoesDiv {
-      width: 100%;
-      position: relative;
-      top: 100%;
-      left: 0;
-      transform: translateY(10px);
-   }
-
-   /* Estilos para os cards 
-   .cards {
-      justify-content: flex-start;
-   }
-
-   .card {
-      width: 100%;
-      margin-bottom: 20px;
-   }
-
-   /* Estilos para os elementos dos cards 
-   .city-name {
-      font-size: 16px;
-      margin-top: 10px;
-   }
-
-   .temperaturaAtual {
-      font-size: 20px;
-      margin-top: 20px;
-   }
-
-   .condicao {
-      font-size: 14px;
-      margin-top: 10px;
-   }
-
-   .probabilidadeChuva {
-      font-size: 12px;
-      margin-top: 10px;
-   }
-
-   .listaTemperatura {
-      flex-wrap: wrap;
-      margin-top: 20px;
-   }
-
-   .temperatureMax,
-   .temperatureMin {
-      width: 50%;
-      margin-bottom: 10px;
-   }
-}
-
-@media screen and (max-width: 500px) {
-   .search {
-      padding: 5px;
-   }
-
-   .search input {
-      font-size: 16px;
-   }
-
-   .search button {
-      font-size: 16px;
-   }
-
-   .sugestoesDiv {
-      width: 100%;
-      top: 100%;
-      left: 0;
-      transform: translateY(5px);
-   }
-
-   .card {
-      margin-bottom: 10px;
-   }
-
-   .city-name {
-      font-size: 14px;
-      margin-top: 5px;
-   }
-
-   .temperaturaAtual {
-      font-size: 18px;
-      margin-top: 10px;
-   }
-
-   .condicao {
-      font-size: 12px;
-      margin-top: 5px;
-   }
-
-   .probabilidadeChuva {
-      font-size: 10px;
-      margin-top: 5px;
-   }
-
-   .listaTemperatura {
-      margin-top: 10px;
-   }
-
-   .temperatureMax,
-   .temperatureMin {
-      width: 100%;
-      margin-bottom: 5px;
-   }
-}
- */
