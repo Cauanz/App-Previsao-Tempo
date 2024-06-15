@@ -1,14 +1,17 @@
-   /* RETORNO CONDIÇÃO ATUAL */
+const searchButton = document.querySelector('.searchButton');
+
+
+/* RETORNO CONDIÇÃO ATUAL */
 async function getWeather(inputCity){
 
    const city = inputCity;
    const apiKey = 'ea9e8fdb5f074392af0160830232705';
-   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&lang=pt`
+   // const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&lang=pt`;
 
-   fetch(apiUrl)
-   .then((response) => response.json())
-   .then((data) => {
-      console.error(data); // Teste de retorno de dados 
+   // fetch(apiUrl)
+   // .then((response) => response.json())
+   // .then((data) => {
+   //    console.log(data); // Teste de retorno de dados 
 
       // const cityName = document.querySelector('.cityName');
 
@@ -34,22 +37,49 @@ async function getWeather(inputCity){
       //    element.innerHTML = `${condicaoAtual}`;
       // });
 
-   })
-   .catch((error) => {
-      console.log(`Ocorreu um erro na solicitação dos dados ${error}`);
-   });
+   // })
+   // .catch((error) => {
+   //    console.log(`Ocorreu um erro na solicitação dos dados ${error}`);
+   // });
 
 
-
-   /* PREVISÃO DO TEMPO - FUTURO*/
+   /* PREVISÃO DO TEMPO - HOJE, AMANHÃ E DEPOIS DE AMANHÃ */
 
    /* FUNÇÃO AUTO INVOCADA - SÓ PARA FECHAR NO EDITOR */
-   const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(city)}&days=5`
+   const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(city)}&days=5&lang=pt`
 
    fetch(forecastUrl)
    .then((response) => response.json())
    .then((data) => {
       console.log(data);
+
+      const cityName = document.querySelector('.cityName');
+
+      let city = data.location.name;
+      let regiao = data.location.region;
+      let pais = data.location.country;
+      let temperature = data.current.temp_c;
+      cityName.innerHTML = `${city} | ${regiao} | ${pais} | ${temperature}°C`;
+
+
+      const daysOfTheWeek = document.querySelectorAll('.DayOfWeek');
+      const condicao = document.querySelectorAll('.condicao');
+      const condicaoIcones = document.querySelectorAll('.climaIcone');
+
+      // data.forecast.forecastday.forEach((day) => {
+      //    console.log(day)
+      // })
+
+      condicaoIcones.forEach((element) => {
+         const icon = data.current.condition.icon;
+         element.src = icon;
+      });
+
+      const condicaoAtual = data.current.condition.text;
+
+      condicao.forEach((element) => {
+         element.innerHTML = `${condicaoAtual}`;
+      });
 
       const probabilidadeChuva = document.querySelectorAll('.probabilidadeChuva');
       const tempMax = document.querySelectorAll('.temperatureMax');
@@ -161,11 +191,14 @@ function updateAutocompleteSuggestions(suggestions) {
    });
 } */
 
-const searchButton = document.querySelector('.searchButton');
-searchButton.addEventListener('click', searchWeather);
-
 const searchWeather = () => {
    const inputCity = document.querySelector('.cityInput').value;
    getWeather(inputCity);
    updateWeather(inputCity);
 }
+
+searchButton.addEventListener('click', (e) => {
+   e.preventDefault();
+   searchWeather();
+});
+
