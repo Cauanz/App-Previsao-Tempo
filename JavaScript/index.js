@@ -51,42 +51,49 @@ async function getWeather(inputCity){
    fetch(forecastUrl)
    .then((response) => response.json())
    .then((data) => {
-      console.log(data);
+      // console.log(data); //* DEBUG
 
       const cityName = document.querySelector('.cityName');
 
       let city = data.location.name;
       let regiao = data.location.region;
       let pais = data.location.country;
-      let temperature = data.current.temp_c;
-      cityName.innerHTML = `${city} | ${regiao} | ${pais} | ${temperature}°C`;
-
+      cityName.innerHTML = `${city} | ${regiao} | ${pais}`;
 
       const daysOfTheWeek = document.querySelectorAll('.DayOfWeek');
       const condicao = document.querySelectorAll('.condicao');
       const condicaoIcones = document.querySelectorAll('.climaIcone');
-
-      // data.forecast.forecastday.forEach((day) => {
-      //    console.log(day)
-      // })
-
-      condicaoIcones.forEach((element) => {
-         const icon = data.current.condition.icon;
-         element.src = icon;
-      });
-
-      const condicaoAtual = data.current.condition.text;
-
-      condicao.forEach((element) => {
-         element.innerHTML = `${condicaoAtual}`;
-      });
-
       const probabilidadeChuva = document.querySelectorAll('.probabilidadeChuva');
       const tempMax = document.querySelectorAll('.temperatureMax');
       const tempMin = document.querySelectorAll('.temperatureMin');
-      
+      const tempAtual = document.querySelector('#temperaturaAtual');
 
-   probabilidadeChuva.forEach((element, index) => {
+      const now = new Date().getTime();
+      const hourData = data.forecast.forecastday[0].hour.find(hour => hour.time_epoch * 1000 >= now);
+      if(hourData){
+         const temp = hourData.temp_c;
+         tempAtual.textContent = `${temp}°C`;
+      }
+
+      daysOfTheWeek.forEach((div, index) => {
+         const WeekDays = ['Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado', 'Domingo'];
+         const timeStamp = data.forecast.forecastday[index].date;
+         const day = new Date(timeStamp)
+         const dayIndex = day.getDay();
+         div.textContent = WeekDays[dayIndex];
+      })
+      
+      condicaoIcones.forEach((element, index) => {
+         const icon = data.forecast.forecastday[index].day.condition.icon;
+         element.src = icon;
+      });
+
+      condicao.forEach((element, index) => {
+         const condicaoAtual = data.forecast.forecastday[index].day.condition.text;
+         element.innerHTML = condicaoAtual;
+      });
+      
+      probabilidadeChuva.forEach((element, index) => {
       const forecastday = data.forecast.forecastday[index];
       if (forecastday) {
          const chuva = forecastday.day.daily_chance_of_rain;
@@ -121,80 +128,32 @@ async function getWeather(inputCity){
    });
 }
 
-function updateWeather(inputCity){
-   const city = inputCity;
-   const apiKey = 'ea9e8fdb5f074392af0160830232705';
-   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&lang=pt`
+// function updateWeather(inputCity){
+//    const city = inputCity;
+//    const apiKey = 'ea9e8fdb5f074392af0160830232705';
+//    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&lang=pt`
 
-   fetch(apiUrl)
-   .then((response) => response.json())
-   .then((data) => {
-      const temp = data.current.temp_c;
-      const tempAtual = document.querySelectorAll('.temperaturaAtual');
-      tempAtual.forEach((elemento) => {
-         elemento.innerHTML = `${temp}°C`;
-      })
+//    fetch(apiUrl)
+//    .then((response) => response.json())
+//    .then((data) => {
+//       const temp = data.current.temp_c;
+//       const tempAtual = document.querySelectorAll('.temperaturaAtual');
+//       tempAtual.forEach((elemento) => {
+//          elemento.innerHTML = `${temp}°C`;
+//       })
 
-   })
-   .catch((error) => {
-      console.log(`Ocorreu um erro na solicitação dos dados ${error}`);
-   });
-}
+//    })
+//    .catch((error) => {
+//       console.log(`Ocorreu um erro na solicitação dos dados ${error}`);
+//    });
+// }
 
 
-//AUTO COMPLETE SEARCH
 
-/* let timeoutId; // Variável para armazenar o ID do timeout
-
-const cityInput = document.querySelector('.cityInput');
-cityInput.addEventListener('input', handleCityInput);
-
-function handleCityInput(event) {
-   const inputValue = event.target.value; // Valor digitado pelo usuário
-   clearTimeout(timeoutId); // Limpar o timeout anterior
-   timeoutId = setTimeout(() => {
-      // Fazer a solicitação à API para obter as sugestões de autocompletar
-      const apiKey = 'ea9e8fdb5f074392af0160830232705';
-      const apiUrl = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${inputValue}&lang=pt`
-
-      fetch(apiUrl)
-         .then(response => response.json())
-         .then(data => {
-            const suggestions = data.map(item => item.name);
-            // Atualizar a interface com as sugestões de autocompletar
-            updateAutocompleteSuggestions(suggestions);
-         })
-         .catch(error => {
-            console.error('Ocorreu um erro na solicitação:', error);
-         });
-   }, 300); // Aguardar 300 milissegundos antes de fazer a solicitação
-}
-
-function updateAutocompleteSuggestions(suggestions) {
-   const autocompleteList = document.querySelector('.sugestoes');
-   autocompleteList.innerHTML = '';
-   suggestions.forEach(suggestion => {
-      const item = document.createElement('li');
-      item.innerHTML = suggestion;
-
-      item.addEventListener('click', () => {
-         const inputCity = document.querySelector('.cityInput')
-         // Ao clicar em uma sugestão, preencher o campo de entrada de texto com o valor selecionado
-         inputCity.value = suggestion;
-         // Fazer uma nova solicitação à API para obter os dados da cidade selecionada
-         getWeather(suggestion);
-         updateWeather(suggestion);
-         // Limpar a lista de sugestões
-         autocompleteList.innerHTML = '';
-      });
-      autocompleteList.appendChild(item);
-   });
-} */
 
 const searchWeather = () => {
    const inputCity = document.querySelector('.cityInput').value;
    getWeather(inputCity);
-   updateWeather(inputCity);
 }
 
 searchButton.addEventListener('click', (e) => {
