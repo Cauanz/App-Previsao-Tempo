@@ -1,11 +1,14 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-// router.get("/", )
+const { getForecast } = require("../controllers/weather-controller");
+
+
+router.get("/", (req, res) => {
+  console.log("Funcionando pelo Docker!");
+});
 
 // TODO - CONTINUAR A PRIMEIRA ROTA, LEMBRE-SE DE MIDDLEWARES, AUTENTICAÇÃO ETC...
-// router.get("/weather/")
-
-
-
+//! NÃO FUNCIONANDO
+router.get("/weather/:query", getForecast);
 
 module.exports = router;
