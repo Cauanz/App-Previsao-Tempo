@@ -3,7 +3,7 @@
 /* PREVISÃO DO TEMPO - HOJE, AMANHÃ E DEPOIS DE AMANHÃ */
 const getForecast = async (req, res) => {
 
-  const params = req.params;
+  const params = req.params.query;
   console.log(params)
   try {
     // const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(

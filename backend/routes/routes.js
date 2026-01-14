@@ -4,11 +4,11 @@ const { getForecast } = require("../controllers/weather-controller");
 
 
 router.get("/", (req, res) => {
-  console.log("Funcionando pelo Docker!");
+  res.send("Funcionando pelo Docker!");
 });
 
 // TODO - CONTINUAR A PRIMEIRA ROTA, LEMBRE-SE DE MIDDLEWARES, AUTENTICAÇÃO ETC...
-//! NÃO FUNCIONANDO
+//* FUNCIONA, É PORQUE O INSOMNIA "QUERY" NÃO FUNCIONA, MAS MANUALMENTE NA BARRA DE URL FUNCIONA
 router.get("/weather/:query", getForecast);
 
 module.exports = router;
