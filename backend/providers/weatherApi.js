@@ -1,11 +1,16 @@
-const weatherApiDailyForecast = async (city, Ndays) => {
-  const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${
-    process.env.WEATHER_API_KEY
-  }&q=${city}&days=${Ndays || 3}&lang=pt`;
-  const res = await axios.get(forecastUrl);
+const { default: axios } = require("axios");
 
-  const data = await res;
-  return data;
+const weatherApiDailyForecast = async (city, Ndays) => {
+  const forecastUrl = `http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&q=${city}&days=${Ndays}&lang=pt`;
+
+  try {
+    const req = await axios.get(forecastUrl);
+    const data = await req.data;
+
+    return data;
+  } catch (error) {
+    return `An error ocurred trying to process the request, ${error}`;
+  }
 };
 
 module.exports = {
