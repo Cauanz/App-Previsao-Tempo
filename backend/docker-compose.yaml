@@ -3,14 +3,22 @@ services:
     build: .
     ports:
       - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
+    # volumes:
+    #   - .:/app
+    #   - /app/node_modules
     depends_on:
       - redis
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
+
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore:
+            - node_modules/
 
   redis:
     image: redis:7
