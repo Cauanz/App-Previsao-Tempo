@@ -1,0 +1,5 @@
+
+
+const formatJSON = (obj) => {
+// TODO - O PLANO PARA COMO FORMATAR ESTÁ SENDO DISCUTIDO NO OBJETO-WEATHER
+}

@@ -26,18 +26,17 @@ const getForecast = async (req, res) => {
   try {
     // PEGA OS DIAS DA QUERY OU DEFAULT
     const days = daysQ || 3;
+    const Reqkey = cityName + days;
 
     // - BUSCA EM CACHE, SE NÃO, FAZ O REQUEST (IF)
-    const cacheRes = await client.hGetAll(cityName + days);
+    const cacheRes = await client.hGetAll(Reqkey);
 
-    // console.log(JSON.stringify(cacheRes));
     if (Object.keys(cacheRes).length !== 0) {
       res.send(cacheRes);
       return;
     }
 
     const requestJson = await weatherApiDailyForecast(cityName, days);
-    console.log(requestJson);
 
     // - ESPERA E VALIDA RESPOSTA
     if (!requestJson) {
@@ -46,10 +45,13 @@ const getForecast = async (req, res) => {
     }
 
     // - ARMAZENA EM CACHE
-    await client.hSet(cityName + days, requestJson);
+    await client.hSet(Reqkey, "data", JSON.stringify(requestJson));
+
+
+    //TODO - TRATA RESPOSTA PARA RESPONDER MENOS E COISAS MAIS CONCISAS
+    const formattedForecast = formatJSON(requestJson);
 
     // - RESPONDE
-    // TODO - NÃO FUNCIONANDO, DIZENDO ALGO DE ERRO DE BUFFER/ARGUMENTS
     res.send(requestJson);
   } catch (error) {
     res.send(`Error trying to recover the forecast, ${error}`);
