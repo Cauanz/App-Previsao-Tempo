@@ -1,6 +1,7 @@
 const axios = require("axios");
 const { weatherApiDailyForecast } = require("../providers/weatherApi");
 const client = require("../providers/cache.provider");
+const { formatForecastJSON } = require("../functions/weatherForecast.function");
 
 const autocomplete = async (req, res) => {
   // TODO - ROTA PARECIDA COM A DE BAIXO, MAS RESPONSE A TODA HORA, COM CADA ENTRADA/REQUEST
@@ -49,7 +50,7 @@ const getForecast = async (req, res) => {
 
 
     //TODO - TRATA RESPOSTA PARA RESPONDER MENOS E COISAS MAIS CONCISAS
-    const formattedForecast = formatJSON(requestJson);
+    const formattedForecast = formatForecastJSON(requestJson);
 
     // - RESPONDE
     res.send(requestJson);
