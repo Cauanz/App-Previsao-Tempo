@@ -1,11 +1,23 @@
-const axios = require("axios");
-const { weatherApiDailyForecast } = require("../providers/weatherApi");
+const {
+  weatherApiDailyForecast,
+  autocompleteWeather,
+} = require("../providers/weatherApi");
 const client = require("../providers/cache.provider");
 const { formatForecastJSON } = require("../functions/weatherForecast.function");
 
-const autocomplete = async (req, res) => {
-  // TODO - ROTA PARECIDA COM A DE BAIXO, MAS RESPONSE A TODA HORA, COM CADA ENTRADA/REQUEST
-  return;
+const getAutocomplete = async (req, res) => {
+  const query = req.query.q;
+
+  if (!query) {
+    res.send({ message: "Query invalid or not found", status: 500 });
+  }
+
+  try {
+    const requestJSON = await autocompleteWeather(query);
+    res.send(requestJSON);
+  } catch (error) {
+    res.send(`Error searching for the specified query, ${error}`);
+  }
 };
 
 /* PREVISÃO DO TEMPO - HOJE, AMANHÃ E DEPOIS DE AMANHÃ */
@@ -33,7 +45,8 @@ const getForecast = async (req, res) => {
     const cacheRes = await client.hGetAll(Reqkey);
 
     if (Object.keys(cacheRes).length !== 0) {
-      res.send(cacheRes);
+      const formattedCache = formatForecastJSON(JSON.parse(cacheRes.data));
+      res.send(formattedCache);
       return;
     }
 
@@ -48,12 +61,11 @@ const getForecast = async (req, res) => {
     // - ARMAZENA EM CACHE
     await client.hSet(Reqkey, "data", JSON.stringify(requestJson));
 
-
-    //TODO - TRATA RESPOSTA PARA RESPONDER MENOS E COISAS MAIS CONCISAS
+    // - TRATA RESPOSTA PARA RESPONDER MENOS E COISAS MAIS CONCISAS
     const formattedForecast = formatForecastJSON(requestJson);
 
     // - RESPONDE
-    res.send(requestJson);
+    res.send(formattedForecast);
   } catch (error) {
     res.send(`Error trying to recover the forecast, ${error}`);
   }
@@ -61,4 +73,5 @@ const getForecast = async (req, res) => {
 
 module.exports = {
   getForecast,
+  getAutocomplete,
 };
