@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const getToken = require("../controllers/token-controller");
+const genToken = require("../controllers/token-controller");
 const {
   getForecast,
   getAutocomplete,
@@ -14,7 +14,6 @@ router.get("/", (req, res) => {
 //* FUNCIONA, É PORQUE O INSOMNIA "QUERY" NÃO FUNCIONA, MAS MANUALMENTE NA BARRA DE URL FUNCIONA
 router.get("/weather/", getForecast);
 router.get("/autocomplete/", getAutocomplete);
-router.post("/getToken/", getToken);
-// TODO - AGORA QUE LEMBREI, PARA TER UM TOKEN, VOCE PRECISA DE ALGUMA FORMA DE VALIDAR ELE (NA MINHA CABEÇA A ÚNICA FORMA É BUSCANDO SE O USER DO TOKEN EXISTE EM ALGUM DB)
+router.get("/getToken/", genToken);
 
 module.exports = router;

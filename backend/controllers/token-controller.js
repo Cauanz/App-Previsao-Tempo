@@ -1,36 +1,32 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const crypto = require("crypto")
+const fs = require("fs");
 
-const getToken = async (req, res) => {
-  const user = req.params.user;
-  const password = req.params.password;
-
-  if (!user || !password) {
-    res.send({
-      message: "Username or password missing or invalid",
-      status: 500,
-    });
-  }
-
+const genToken = async (req, res) => {
   try {
-    const salt = bcrypt.genSalt(10);
-
-    const data = user + password;
-    const hashedData = bcrypt.hash(data, salt);
-
-    const token = jwt.sign(hashedData, process.env.SECRET);
+    const token = crypto.randomBytes(32).toString("hex");
 
     if (!token) {
       res.send({
         message: "An error occurred when trying to create the token",
         status: 400,
       });
-
-      res.send(token);
     }
+
+    // TODO - TERMINAR ISSO USANDO O "DB" TEMPORÁRIO PARA TESTAR E PENSAR EM QUAL DB USAR
+
+    // TODO - ESTÁ DANDO ERRO QUE NÃO PODE LER O ARQUIVO
+    files = fs.readFileSync("../TOKEN_DB_STORAGE_TEMP/tokens.json");
+    console.log(files)
+
+    res.send(token);
   } catch (error) {
     res.send(`Error generating the token, ${error}`);
   }
 };
 
-module.exports = getToken;
+const genPaidToken = async (req, res) => {
+  //TODO SALVA EM OUTRO DB OU COM OUTRA CARACTERISTICA, CHAVE-VALOR, SEI LÁ
+  return;
+};
+
+module.exports = genToken;
