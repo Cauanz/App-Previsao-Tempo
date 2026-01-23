@@ -8,7 +8,7 @@ const Routes = require("./routes/routes");
 app.use(cors());
 app.use(express.json());
 
-app.use("/", Routes);
+app.use("/v1/", Routes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port: ${process.env.PORT}`);
