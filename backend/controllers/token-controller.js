@@ -1,5 +1,6 @@
-const crypto = require("crypto")
+const crypto = require("crypto");
 const fs = require("fs");
+const path = require("path");
 
 const genToken = async (req, res) => {
   try {
@@ -12,12 +13,21 @@ const genToken = async (req, res) => {
       });
     }
 
-    // TODO - TERMINAR ISSO USANDO O "DB" TEMPORÁRIO PARA TESTAR E PENSAR EM QUAL DB USAR
 
-    // TODO - ESTÁ DANDO ERRO QUE NÃO PODE LER O ARQUIVO
-    files = fs.readFileSync("../TOKEN_DB_STORAGE_TEMP/tokens.json");
-    console.log(files)
+    //* ELE FUNCIONA, MAS TANTO O DIRETÓRIO QUANTO O ARQUIVO FICAM NO CONTAINER DO DOCKER, NÃO LOCALMENTE
+    const DB_FILE = path.join(
+      __dirname,
+      "../TOKEN_DB_STORAGE_TEMP/tokens.json",
+    );
+    let files = [];
+    if (fs.existsSync(DB_FILE)) {
+      const content = fs.readFileSync(DB_FILE, "utf8");
+      if (content) files = JSON.parse(content);
+    }
+    files.push(token);
+    fs.writeFileSync(DB_FILE, JSON.stringify(files, null, 2), "utf8");
 
+    
     res.send(token);
   } catch (error) {
     res.send(`Error generating the token, ${error}`);
