@@ -13,12 +13,14 @@ const genToken = async (req, res) => {
       });
     }
 
-
     //* ELE FUNCIONA, MAS TANTO O DIRETÓRIO QUANTO O ARQUIVO FICAM NO CONTAINER DO DOCKER, NÃO LOCALMENTE
-    const DB_FILE = path.join(
-      __dirname,
-      "../TOKEN_DB_STORAGE_TEMP/tokens.json",
-    );
+    const dirPath = path.join(__dirname, "../TOKEN_DB_STORAGE_TEMP");
+    const DB_FILE = path.join(__dirname, "../TOKEN_DB_STORAGE_TEMP/tokens.json");
+
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
+
     let files = [];
     if (fs.existsSync(DB_FILE)) {
       const content = fs.readFileSync(DB_FILE, "utf8");
@@ -27,7 +29,6 @@ const genToken = async (req, res) => {
     files.push(token);
     fs.writeFileSync(DB_FILE, JSON.stringify(files, null, 2), "utf8");
 
-    
     res.send(token);
   } catch (error) {
     res.send(`Error generating the token, ${error}`);
