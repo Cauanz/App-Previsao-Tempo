@@ -10,7 +10,7 @@ const authToken = async (req, res, next) => {
 
     if (authorization !== "Bearer") {
       res.send({
-        message: "Bearer token missing in request",
+        message: "Unusual token found",
         status: 500,
       });
     }
@@ -26,19 +26,9 @@ const authToken = async (req, res, next) => {
 
     const cachedToken = await client.get(token);
 
-    // const DB_FILE = path.join(
-    //   __dirname,
-    //   "../TOKEN_DB_STORAGE_TEMP/tokens.json",
-    // );
-
-    // let files = [];
-    // if (fs.existsSync(DB_FILE)) {
-    //   const content = fs.readFileSync(DB_FILE, "utf8");
-    //   if (content) files = JSON.parse(content);
-    // }
-
-    if (!token) {
+    if (!cachedToken) {
       res.send("Token invalid or expired!");
+      return;
     }
 
     next();
