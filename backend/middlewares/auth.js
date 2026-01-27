@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const client = require("../providers/cache.provider");
 
 // TODO - FUNCIONANDO, MAS REVISAR, ACHO QUE TEM COISAS SOBRE SEGURANÇA DE TOKEN ETC... FALTANDO. E CÓDIGOS DE ERRO HTTP DEVEM ESTAR TODOS ERRADOS
 const authToken = async (req, res, next) => {
@@ -23,20 +24,21 @@ const authToken = async (req, res, next) => {
       });
     }
 
-    // TODO - E OBVIAMENTE IMPLEMENTAR UM DB REAL
-    const DB_FILE = path.join(
-      __dirname,
-      "../TOKEN_DB_STORAGE_TEMP/tokens.json",
-    );
+    const cachedToken = await client.get(token);
 
-    let files = [];
-    if (fs.existsSync(DB_FILE)) {
-      const content = fs.readFileSync(DB_FILE, "utf8");
-      if (content) files = JSON.parse(content);
-    }
+    // const DB_FILE = path.join(
+    //   __dirname,
+    //   "../TOKEN_DB_STORAGE_TEMP/tokens.json",
+    // );
 
-    if (!files.includes(token)) {
-      res.send("Token invalid!");
+    // let files = [];
+    // if (fs.existsSync(DB_FILE)) {
+    //   const content = fs.readFileSync(DB_FILE, "utf8");
+    //   if (content) files = JSON.parse(content);
+    // }
+
+    if (!token) {
+      res.send("Token invalid or expired!");
     }
 
     next();
