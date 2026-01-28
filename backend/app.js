@@ -13,8 +13,3 @@ app.use("/v1/", Routes);
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port: ${process.env.PORT}`);
 });
-
-// TODO - CONTINUAR O WEATHER APP/API
-// TODO - LEMBRE-SE, SÓ O BACKEND, PARA APRENDER A PROFISSIONALIZAR OQUE FAZ, USANDO INSOMNIA, COM SEGURANÇA ETC...
-
-

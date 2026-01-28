@@ -1,8 +1,5 @@
-const fs = require("fs");
-const path = require("path");
 const client = require("../providers/cache.provider");
 
-// TODO - FUNCIONANDO, MAS REVISAR, ACHO QUE TEM COISAS SOBRE SEGURANÇA DE TOKEN ETC... FALTANDO. E CÓDIGOS DE ERRO HTTP DEVEM ESTAR TODOS ERRADOS
 const authToken = async (req, res, next) => {
   const headers = req.headers;
   try {
@@ -11,7 +8,7 @@ const authToken = async (req, res, next) => {
     if (authorization !== "Bearer") {
       res.send({
         message: "Unusual token found",
-        status: 500,
+        status: 401,
       });
     }
 
@@ -20,21 +17,24 @@ const authToken = async (req, res, next) => {
     if (!token) {
       res.send({
         message: "Token missing in request",
-        status: 500,
+        status: 401,
       });
     }
 
     const cachedToken = await client.get(token);
 
     if (!cachedToken) {
-      res.send("Token invalid or expired!");
+      res.send({
+        message: "Token invalid or expired!",
+        status: 401,
+      });
       return;
     }
 
     next();
   } catch (error) {
     res.send({
-      message: error,
+      message: `Internal error ${error}`,
       status: 500,
     });
   }

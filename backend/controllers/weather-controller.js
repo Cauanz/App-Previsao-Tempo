@@ -24,7 +24,6 @@ const getAutocomplete = async (req, res) => {
 const getForecast = async (req, res) => {
   const cityName = req.query.city;
   const daysQ = req.query.d;
-  // const token =
 
   // TODO - PEGA QUERY DE NOME DE CIDADE (AUTOCOMPLETE SERÁ OUTRA ROTA PARECIDA)
   // TODO - VALIDA ENTRADA (TIPOS, TAMANHO, SE TODAS ENTRADAS NECESSÁRIAS EXISTEM ETC...)
